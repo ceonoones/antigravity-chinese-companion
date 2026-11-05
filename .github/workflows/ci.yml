@@ -39,7 +39,7 @@ jobs:
           $agHash = (Get-FileHash -LiteralPath "dist/$agArchive" -Algorithm SHA256).Hash.ToLowerInvariant()
           Set-Content -LiteralPath 'dist/SHA256SUMS.txt' -Value "$agHash  $agArchive" -Encoding utf8NoBOM
       - name: 保存构建产物
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-package
           retention-days: 14
