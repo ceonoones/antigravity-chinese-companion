@@ -5,6 +5,6 @@
   "description": "Regression tests for the Antigravity Chinese UI companion",
   "license": "MIT",
   "scripts": { "test": "node tests/verify-project.cjs && node tests/translator.cjs" },
-  "devDependencies": { "playwright": "1.62.1" },
+  "devDependencies": { "playwright": "1.64.1" },
   "engines": { "node": ">=20" }
 }
