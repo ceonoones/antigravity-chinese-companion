@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.exe
+*.pdb
+*.log
+test-results/
+playwright-report/
+汉化词典.json
+.env
+.env.*
+test-output/

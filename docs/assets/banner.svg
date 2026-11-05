@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Antigravity 中文伴侣</title>
+  <desc id="desc">独立运行、可逆汉化的 Windows 社区项目。右侧为界面文字示意，并非客户端截图。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101a32"/><stop offset="1" stop-color="#1d2445"/></linearGradient>
+    <linearGradient id="accent" x2="1" y2="1"><stop stop-color="#88e2ce"/><stop offset="1" stop-color="#a7a2ff"/></linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+  <circle cx="1110" cy="-20" r="230" fill="#7378d8" opacity=".09"/>
+  <circle cx="720" cy="370" r="220" fill="#63cdbb" opacity=".06"/>
+  <g font-family="Segoe UI,Microsoft YaHei,PingFang SC,sans-serif">
+    <rect x="48" y="44" width="54" height="54" rx="16" fill="url(#accent)"/>
+    <text x="75" y="81" text-anchor="middle" fill="#16233a" font-size="30" font-weight="700">文</text>
+    <text x="120" y="67" fill="#a8b6d2" font-size="15" letter-spacing="2">COMMUNITY · OPEN SOURCE</text>
+    <text x="48" y="160" fill="#f5f7ff" font-size="43" font-weight="700">Antigravity 中文伴侣</text>
+    <text x="50" y="201" fill="#b9c6df" font-size="20">让界面更易读，让原有工作流继续。</text>
+    <g font-size="15" fill="#d9e3f6">
+      <rect x="50" y="239" width="104" height="34" rx="17" fill="#2b3653"/><text x="102" y="262" text-anchor="middle">Windows</text>
+      <rect x="166" y="239" width="102" height="34" rx="17" fill="#2b3653"/><text x="217" y="262" text-anchor="middle">MIT 开源</text>
+      <rect x="280" y="239" width="118" height="34" rx="17" fill="#2b3653"/><text x="339" y="262" text-anchor="middle">可恢复原文</text>
+    </g>
+    <text x="50" y="318" fill="#899ab9" font-size="13">预览版本 · 370 条内置译文 · 社区独立项目</text>
+    <g transform="translate(725 64)">
+      <rect width="425" height="232" rx="16" fill="#121c31" stroke="#3d4d70"/>
+      <path d="M0 46h425" stroke="#324260"/>
+      <circle cx="24" cy="23" r="4" fill="#81d8c5"/>
+      <text x="42" y="29" font-size="14" fill="#b9c6df">界面汉化示意</text>
+      <rect x="20" y="64" width="111" height="146" rx="10" fill="#1d2a44"/>
+      <rect x="29" y="76" width="93" height="31" rx="7" fill="#344761"/>
+      <text x="46" y="97" font-size="14" fill="#b6f0e3">常规设置</text>
+      <text x="46" y="132" font-size="14" fill="#a9bbd4">外观</text>
+      <text x="46" y="167" font-size="14" fill="#a9bbd4">快捷键</text>
+      <text x="153" y="91" font-size="20" font-weight="600" fill="#eef2fc">设置，更熟悉</text>
+      <text x="153" y="121" font-size="13" fill="#9aacc7">只处理显示层的已收录文字</text>
+      <rect x="153" y="143" width="247" height="48" rx="9" fill="#24354d"/>
+      <text x="167" y="172" font-size="14" fill="#a7e5d7">随时暂停，恢复英文</text>
+    </g>
+  </g>
+</svg>

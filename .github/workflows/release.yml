@@ -1,0 +1,59 @@
+name: 发布预览版
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  checks:
+    name: 发布检查
+    uses: ./.github/workflows/ci.yml
+  publish:
+    name: 创建 GitHub Release
+    needs: checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-package
+          path: dist
+      - name: 上传附件并公开预览版
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const {owner, repo} = context.repo;
+            const version = fs.readFileSync('version.txt', 'utf8').trim();
+            if (!/^\d+\.\d+\.\d+$/.test(version)) throw new Error('Invalid version.');
+            const tag = `v${version}`;
+            if (context.ref !== `refs/tags/${tag}`) throw new Error('Tag and source version do not match.');
+            const archive = `antigravity-chinese-companion-${tag}-windows.zip`;
+            try {
+              const existing = await github.rest.repos.getReleaseByTag({owner, repo, tag});
+              if (existing.data.draft) throw new Error('A draft exists. Review it before retrying.');
+              core.notice(`Release ${tag} already exists; published files are not overwritten.`);
+              return;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            const {data: release} = await github.rest.repos.createRelease({
+              owner, repo, tag_name: tag, target_commitish: context.sha,
+              name: `Antigravity 中文伴侣 ${tag}（预览版）`,
+              body: fs.readFileSync('RELEASE_NOTES.md', 'utf8'),
+              draft: true, prerelease: true
+            });
+            for (const name of [archive, 'SHA256SUMS.txt']) {
+              await github.rest.repos.uploadReleaseAsset({
+                owner, repo, release_id: release.id, name,
+                data: fs.readFileSync(`dist/${name}`),
+                headers: {'content-type': name.endsWith('.zip') ? 'application/zip' : 'text/plain'}
+              });
+            }
+            await github.rest.repos.updateRelease({owner, repo, release_id: release.id, draft: false});
+            core.notice(`Published ${release.html_url}`);

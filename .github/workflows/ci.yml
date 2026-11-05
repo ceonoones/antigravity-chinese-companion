@@ -1,0 +1,48 @@
+name: 测试与构建
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  test:
+    name: 项目检查与显示层测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+  build:
+    name: Windows 编译与打包
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 验证 Windows PowerShell 构建
+        shell: powershell
+        run: .\build.ps1
+      - name: 打包与校验
+        shell: pwsh
+        run: |
+          $agVersion = (Get-Content version.txt -Raw).Trim()
+          if ($agVersion -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid release version.' }
+          $agArchive = "antigravity-chinese-companion-v$agVersion-windows.zip"
+          Compress-Archive -LiteralPath 'dist/Antigravity中文伴侣' -DestinationPath "dist/$agArchive" -Force
+          $agHash = (Get-FileHash -LiteralPath "dist/$agArchive" -Algorithm SHA256).Hash.ToLowerInvariant()
+          Set-Content -LiteralPath 'dist/SHA256SUMS.txt' -Value "$agHash  $agArchive" -Encoding utf8NoBOM
+      - name: 保存构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-package
+          retention-days: 14
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS.txt

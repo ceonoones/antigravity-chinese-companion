@@ -1,0 +1,30 @@
+name: 漏译或译文改进
+description: 提交未翻译的界面文字或更准确的中文建议
+title: "[译文] "
+labels: [translation]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: 客户端版本与页面
+      placeholder: 2.29.0 / 常规设置
+    validations:
+      required: true
+  - type: textarea
+    id: original
+    attributes:
+      label: 准确英文原文
+      description: 请只提供界面文字，不附带用户对话、项目名称或个人数据。
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: 建议译文与说明
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 隐私检查
+      options:
+        - label: 内容不包含个人信息、电脑信息或凭据。
+          required: true

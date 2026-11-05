@@ -1,0 +1,10 @@
+{
+  "name": "antigravity-chinese-companion",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Regression tests for the Antigravity Chinese UI companion",
+  "license": "MIT",
+  "scripts": { "test": "node tests/verify-project.cjs && node tests/translator.cjs" },
+  "devDependencies": { "playwright": "1.62.1" },
+  "engines": { "node": ">=20" }
+}
